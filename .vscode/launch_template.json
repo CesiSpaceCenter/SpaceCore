@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "AMB82 Build & upload",
+            "consoleName": "AMB82 Build & upload",
+            "request": "launch",
+            "type": "debugpy",
+            "pythonArgs": [
+                "-O"
+            ],
+            "program": ".vscode/build-upload.py",
+            "args": [
+                "${workspaceFolder}",
+                "&&",
+                "exit"
+            ],
+            "console": "integratedTerminal"
+        }
+    ]
+}
