@@ -1,18 +1,16 @@
 #include <Arduino.h>
+#include <Wire.h>
 
-// put function declarations here:
-int myFunction(int, int);
+#include <LIS3MDL.h>
+#include <LPS.h>
+#include <LSM6.h>
+
+LIS3MDL mag;
+LPS ps;
+LSM6 imu;
 
 void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-}
-
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
 }
