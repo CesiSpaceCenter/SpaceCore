@@ -1,15 +1,22 @@
 #include <Arduino.h>
 #include <Wire.h>
 
-#include <LIS3MDL.h>
-#include <LPS.h>
-#include <LSM6.h>
+#include "sensors/imu.cpp"
+#include "sensors/ps.cpp"
+#include "sensors/mag.cpp"
 
-LIS3MDL mag;
-LPS ps;
-LSM6 imu;
+IMU imu;
+PS ps;
+MAG mag;
 
 void setup() {
+  Serial.begin(9600);
+
+  Wire.begin();
+
+  imu.init();
+  ps.init();
+  mag.init();
 }
 
 void loop() {
