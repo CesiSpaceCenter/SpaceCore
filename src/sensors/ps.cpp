@@ -2,7 +2,7 @@
 
 void PS::init()
 {
-    if (!lps.init())
+    if (!lps.init(LPS::device_22DF, LPS::sa0_high))
     {
         Serial.println("Failed to autodetect pressure sensor!");
         while (1)

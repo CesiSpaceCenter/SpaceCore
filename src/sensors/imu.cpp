@@ -2,7 +2,7 @@
 
 void IMU::init()
 {
-    if (!lsm.init())
+    if (!lsm.init(LSM6::device_DSO, LSM6::sa0_high))
     {
         Serial.println("Failed to detect and initialize IMU!");
         while (1);
