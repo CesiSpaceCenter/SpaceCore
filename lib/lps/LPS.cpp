@@ -30,8 +30,9 @@ LPS::LPS(void)
 // sets or detects device type and slave address; returns bool indicating success
 bool LPS::init(deviceType device, byte sa0)
 {
-  if (!detectDeviceAndAddress(device, (sa0State)sa0))
-    return false;
+  _device = device;
+  //if (!detectDeviceAndAddress(device, (sa0State)sa0))
+  //  return false;
 
   switch (_device)
   {
