@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include <Wire.h>
 
-#define PLATFORM_ARDUINO
+#define PLATFORM_AMB82
 
 #ifdef PLATFORM_ARDUINO
 #include "sensors/imu.h"
@@ -13,30 +13,42 @@
 #include "sensors/imu.cpp"
 #include "sensors/ps.cpp"
 #include "sensors/mag.cpp"
+#include "datafile/datafile.cpp"
 #endif
 
-IMU imu;
-PS ps;
-MAG mag;
+IMU* imu;
+PS* ps;
+MAG* mag;
+
+DataFile* datafile;
 
 void setup()
 {
-  Serial.begin(9600);
+  Serial.begin(115200);
 
   Wire.begin();
 
-  imu.init();
-  ps.init();
-  mag.init();
+  imu = new IMU();
+  ps = new PS();
+  mag = new MAG();
+
+  imu->init();
+  ps->init();
+  mag->init();
+
+  datafile = new DataFile();
 }
 
-char report[300];
+IMU::Reading imuReading;
+PS::Reading psReading;
+MAG::Reading magReading;
 
 void loop()
 {
-  IMU::Reading imuReading = imu.read();
-  PS::Reading psReading = ps.read();
-  MAG::Reading magReading = mag.read();
+  psReading = ps->read();
+  imuReading = imu->read();
+  
+  //magReading = mag.read();
 
   Serial.print("acc_x:");
   Serial.print(imuReading.acc.x);
@@ -56,12 +68,13 @@ void loop()
   Serial.print(psReading.alt);
   Serial.print(",ps_t:");
   Serial.print(psReading.temp);
-  Serial.print(",mag_x:");
+  /*Serial.print(",mag_x:");
   Serial.print(magReading.x);
   Serial.print(",mag_y:");
   Serial.print(magReading.y);
   Serial.print(",mag_z:");
-  Serial.print(magReading.z);
+  Serial.print(magReading.z);*/
   Serial.println();
-  delay(100);
+  delay(300);
+  datafile->write(String(psReading.temp));
 }
