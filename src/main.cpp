@@ -24,17 +24,17 @@ DataFile* datafile;
 
 void setup()
 {
-  Serial.begin(115200);
+  Serial.begin(9600);
 
   Wire.begin();
 
-  imu = new IMU();
+  //imu = new IMU();
   ps = new PS();
-  mag = new MAG();
+  //mag = new MAG();
 
-  imu->init();
+  //imu->init();
   ps->init();
-  mag->init();
+  //mag->init();
 
   datafile = new DataFile();
 }
@@ -46,11 +46,11 @@ MAG::Reading magReading;
 void loop()
 {
   psReading = ps->read();
-  imuReading = imu->read();
+  //imuReading = imu->read();
   
   //magReading = mag.read();
 
-  Serial.print("acc_x:");
+  /*Serial.print("acc_x:");
   Serial.print(imuReading.acc.x);
   Serial.print(",acc_y:");
   Serial.print(imuReading.acc.y);
@@ -61,8 +61,8 @@ void loop()
   Serial.print(",gyr_y:");
   Serial.print(imuReading.gyr.y);
   Serial.print(",gyr_z:");
-  Serial.print(imuReading.gyr.z);
-  Serial.print(",ps_p:");
+  Serial.print(imuReading.gyr.z);*/
+  Serial.print("ps_p:");
   Serial.print(psReading.pres);
   Serial.print(",ps_a:");
   Serial.print(psReading.alt);
@@ -75,6 +75,6 @@ void loop()
   Serial.print(",mag_z:");
   Serial.print(magReading.z);*/
   Serial.println();
-  delay(300);
-  datafile->write(String(psReading.temp));
+  delay(100);
+  datafile->write(String(millis()) + "," + String(psReading.alt) + "," + String(psReading.pres) + "," + String(psReading.temp));
 }

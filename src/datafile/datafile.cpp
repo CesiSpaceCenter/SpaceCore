@@ -15,7 +15,7 @@ DataFile::DataFile() {
     Serial.print("Filename:");
     Serial.println(flight_num_int);*/
 
-    this->file = this->fs.open("abc");
+    this->file = this->fs.open("data");
 }
 
 void DataFile::write(String data) {
