@@ -30,9 +30,8 @@ LPS::LPS(void)
 // sets or detects device type and slave address; returns bool indicating success
 bool LPS::init(deviceType device, byte sa0)
 {
-  _device = device;
-  //if (!detectDeviceAndAddress(device, (sa0State)sa0))
-  //  return false;
+  if (!detectDeviceAndAddress(device, (sa0State)sa0))
+    return false;
 
   switch (_device)
   {
@@ -142,6 +141,8 @@ byte LPS::readReg(int reg)
   Wire.write(reg);
   Wire.endTransmission(false); // restart
   Wire.requestFrom(address, (byte)1);
+  delay(1);
+
   value = Wire.read();
 
   return value;
@@ -174,6 +175,7 @@ int32_t LPS::readPressureRaw(void)
   }
   Wire.endTransmission();
   Wire.requestFrom(address, (byte)3);
+  delay(1);
 
   uint8_t pxl = Wire.read();
   uint8_t pl = Wire.read();
@@ -230,6 +232,7 @@ int16_t LPS::readTemperatureRaw(void)
   }
   Wire.endTransmission();
   Wire.requestFrom(address, (byte)2);
+  delay(1);
 
   uint8_t tl = Wire.read();
   uint8_t th = Wire.read();
@@ -305,6 +308,8 @@ int LPS::testWhoAmI(byte address)
   Wire.endTransmission();
 
   Wire.requestFrom(address, (byte)1);
+  delay(1);
+
   if (Wire.available())
     return Wire.read();
   else

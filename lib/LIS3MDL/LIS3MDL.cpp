@@ -117,6 +117,8 @@ uint8_t LIS3MDL::readReg(uint8_t reg)
   last_status = Wire.endTransmission();
 
   Wire.requestFrom(address, (uint8_t)1);
+  delay(1);
+
   value = Wire.read();
 
   return value;
@@ -131,6 +133,8 @@ void LIS3MDL::read()
   Wire.endTransmission();
 
   Wire.requestFrom(address, (uint8_t)6);
+  delay(1);
+
   uint8_t xlm = Wire.read();
   uint8_t xhm = Wire.read();
   uint8_t ylm = Wire.read();
@@ -164,6 +168,8 @@ int16_t LIS3MDL::testReg(uint8_t address, regAddr reg)
   }
 
   Wire.requestFrom(address, (uint8_t)1);
+  delay(1);
+
   if (Wire.available())
   {
     return Wire.read();

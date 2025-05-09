@@ -147,6 +147,8 @@ uint8_t LSM6::readReg(uint8_t reg)
   last_status = bus->endTransmission();
 
   bus->requestFrom(address, (uint8_t)1);
+  delay(1);
+
   value = bus->read();
 
   return value;
@@ -161,6 +163,8 @@ void LSM6::readAcc()
   bus->endTransmission();
 
   bus->requestFrom(address, (uint8_t)6);
+  delay(1);
+
   uint8_t xla = bus->read();
   uint8_t xha = bus->read();
   uint8_t yla = bus->read();
@@ -183,6 +187,8 @@ void LSM6::readGyro()
   bus->endTransmission();
 
   bus->requestFrom(address, (uint8_t)6);
+  delay(1);
+
   uint8_t xlg = bus->read();
   uint8_t xhg = bus->read();
   uint8_t ylg = bus->read();
@@ -223,6 +229,8 @@ int16_t LSM6::testReg(uint8_t address, regAddr reg)
   }
 
   bus->requestFrom(address, (uint8_t)1);
+  delay(1);
+
   if (bus->available())
   {
     return bus->read();
